@@ -20,6 +20,7 @@ sklearn = "*"
 scipy = "*"
 dynaconf = "*"
 pyarrow = "*"
+dvc = {extras = ["s3"], version = "*"}
 
 [requires]
 python_version = "3.8"

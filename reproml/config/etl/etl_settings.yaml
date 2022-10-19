@@ -2,89 +2,9 @@ raw_data_path: data/raw/
 processed_data_path: data/processed/
 remote_processed_path: s3://reproml-data/processed/
 
-census:
-  name: census
-  businesspatterns:
-    name: businesspatterns
-    path: "@format {this.census.name}/{this.census.businesspatterns.name}/"
-    url: 'https://www2.census.gov/programs-surveys/cbp/datasets/2019/cbp19co.zip'
-    partition_cols: [fipstate, fipscty]
-  population:
-    urls:
-      pop_estimates: "https://www.ers.usda.gov/webdocs/DataFiles/48747/PopulationEstimates.xlsx?v=5733.9"
-      pop_cty_estimates: "https://www2.census.gov/programs-surveys/popest/tables/2010-2019/counties/totals/co-est2019-annres.xlsx"
-      st_cty_ref_url: "https://www2.census.gov/programs-surveys/cbp/technical-documentation/reference/state-county-geography-reference/georef17.txt"
-    partition_cols: []
-    name: population
-    path: "@format {this.census.name}/{this.census.population.name}/"
-
-economic:
-  name: economic
-  cost_of_living:
-    name: cost_of_living
-    path: "@format {this.economic.name}/{this.economic.cost_of_living.name}/"
-    url: "https://api.c2er.org/costofliving/v3.0/api/api/GetPlaces?licenseeGuid=%7B5B5A7F21-A4E6-4BD0-96C1-32D9D8960C5F%7D&indexType=1&placeType=1"
-    partition_cols: [state]
-    filename: cost_of_living.parquet
-  taxes:
-    property:
-      name: property
-      path: "@format {this.economic.name}/{this.economic.taxes.property.name}/"
-      url: "https://smartasset.com/taxes/{state}-property-tax-calculator"
-      partition_cols: []
-      filename: property-taxes.json
-      columns:
-        - 'County'
-        - 'Median_Home_Value'
-        - 'Median_Annual_Property_Tax_Payment'
-        - 'Average_Effective_Property_Tax_Rate'
-        - 'State'
-        - 'Parish'
-    sales:
-      name: sales
-      path: "@format {this.economic.name}/{this.economic.taxes.sales.name}/"
-      url: "https://smartasset.com/taxes/{state}-tax-calculator"
-      partition_cols: []
-      filename: sales-taxes.json
-    income:
-      name: income
-      path: "@format {this.economic.name}/{this.economic.taxes.income.name}/"
-      url: "https://smartasset.com/taxes/{state}-tax-calculator"
-      partition_cols: []
-      filename: income-taxes.json
-
-employment:
-  name: employment
-  crosswalk:
-    name: crosswalk
-    path: "@format {this.employment.name}/{this.employment.crosswalk.name}/"
-    url: "https://www.naics.com/naics-to-sic-crosswalk-search-results"
-    partition_cols: []
-    filename: crosswalk.json
-  naics:
-    name: naics
-    path: "@format {this.employment.name}/{this.employment.naics.name}/"
-    url: "https://www.census.gov/naics/2022NAICS/2022_NAICS_Descriptions.xlsx"
-    partition_cols: []
-    filename: naics.json
-
-environment:
-  name: environment
-  climate:
-    name: climate
-    path: "@format {this.environment.name}/{this.environment.climate.name}/"
-    url: "https://www.ncei.noaa.gov/data/normals-annualseasonal/1991-2020/archive/us-climate-normals_1991-2020_annualseasonal_multivariate_by-station_c20210609.tar.gz"
-    partition_cols: []
-    filename: "us-climate-normals_1991-2020_annualseasonal_multivariate_by-station_c20210609.tar.gz"
-  parks:
-    name: parks
-    path: "@format {this.environment.name}/{this.environment.parks.name}/"
-    url:
-    partition_cols: []
-    filename:
-  walkability:
-    name: walkability
-    path: "@format {this.environment.name}/{this.environment.parks.name}/"
-    url:
-    partition_cols: []
-    filename:
+lyrics:
+  name: lyrics
+  path: "@format {this.lyrics.name}/"
+  url: 'https://raw.githubusercontent.com/tmthyjames/cypher/master/data/lyrics_whole.csv.zip'
+  partition_cols: [year]
+  file_name: lyrics_whole.csv

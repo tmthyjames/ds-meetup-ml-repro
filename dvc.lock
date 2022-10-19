@@ -1,0 +1,12 @@
+schema: '2.0'
+stages:
+  lyrics-etl:
+    cmd: reproml etl lyrics
+    outs:
+    - path: data/processed/lyrics
+      md5: bdef894226974698cb0745fff57fe54b.dir
+      size: 18091467
+      nfiles: 37
+    - path: data/raw/lyrics/lyrics_whole.csv.zip
+      md5: a9e618c5b49032cc096d163b68966ecb
+      size: 10738951

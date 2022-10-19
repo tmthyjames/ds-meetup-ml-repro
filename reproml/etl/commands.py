@@ -15,18 +15,19 @@ def run(**kwargs) -> None:
     run_economic(**kwargs)
 
 
-@etl.command(help="run the census data jobs.")
+@etl.command(help="run the lyrics data jobs.")
 @click.option(
     "-s",
     "--steps",
-    help="Specify which steps to run in the census pipeline",
+    help="Specify which steps to run in the lyrics pipeline",
     default=["extract", "transform", "load"],
     multiple=True,
 )
-def census(steps, **kwargs) -> None:
-    from reproml.etl.census import run_census
+def lyrics(steps, **kwargs) -> None:
+    from reproml.etl.lyrics import process_lyrics, run_lyrics
 
-    run_census(steps=steps, **kwargs)
+    path = run_lyrics()
+    process_lyrics(path)
 
 
 @etl.command(help="Run the economic data jobs.")

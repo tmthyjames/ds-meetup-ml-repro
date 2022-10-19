@@ -1,0 +1,6 @@
+stages:
+  lyrics-etl:
+    cmd: reproml etl lyrics
+    outs:
+    - data/processed/lyrics
+    - data/raw/lyrics/lyrics_whole.csv.zip
