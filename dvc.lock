@@ -14,8 +14,8 @@ stages:
     cmd: reproml etl get-lyrics
     deps:
     - path: reproml/etl/lyrics/_lyrics.py
-      md5: 898af053733b58e7ae54efd1f1ee297b
-      size: 456
+      md5: 7ab85d700a6eb85bca6da504353a0e43
+      size: 377
     outs:
     - path: data/raw/lyrics/
       md5: 7f9dd04a08e73fb7ff5c3f0774ffd5e9.dir
@@ -29,8 +29,8 @@ stages:
       size: 89415465
       nfiles: 4
     - path: reproml/preprocess/_preprocess.py
-      md5: 726ace3939bcefba04114e15f1e08449
-      size: 1784
+      md5: 32a74b137d42a7b76d6982ac09187289
+      size: 1799
     outs:
     - path: data/processed/lyrics
       md5: 6ad855c7d320831760cb3e8928830ff5.dir
@@ -44,8 +44,8 @@ stages:
       size: 69960076
       nfiles: 83
     - path: reproml/preprocess/_preprocess.py
-      md5: 726ace3939bcefba04114e15f1e08449
-      size: 1784
+      md5: 32a74b137d42a7b76d6982ac09187289
+      size: 1799
     outs:
     - path: data/modeling/test_set.parquet
       md5: 4fdc0020c1af91f738bf4303662d9ee9
@@ -53,3 +53,26 @@ stages:
     - path: data/modeling/train_set.parquet
       md5: 87ff53661044b8342f84a281cf073c02
       size: 54937770
+  train-model:
+    cmd: reproml ml train
+    deps:
+    - path: data/modeling/train_set.parquet
+      md5: 87ff53661044b8342f84a281cf073c02
+      size: 54937770
+    - path: reproml/ml/_ml.py
+      md5: c86d85267831e872f7c1a6b741cd043d
+      size: 681
+    outs:
+    - path: model_artifacts/model.pkl
+      md5: 17c7b7b65fbebce9f21ccd082b3349db
+      size: 15751394
+  validate-model:
+    cmd: reproml ml validate
+    deps:
+    - path: model_artifacts/model.pkl
+      md5: 17c7b7b65fbebce9f21ccd082b3349db
+      size: 15751394
+    outs:
+    - path: data/metrics/performance.json
+      md5: c3c1f4b7bc4608203c5727112883b04c
+      size: 128
