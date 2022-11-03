@@ -5,7 +5,7 @@ import click
 @click.option(
     "-r",
     "--rank",
-    help="func for matching cities to preferences",
+    help="run full ML pipeline",
     default=[],
     multiple=True,
 )
@@ -13,13 +13,15 @@ def ml(**kwargs) -> None:
     pass
 
 
-@ml.command(help="Extract similarity data via Spark.")
+@ml.command(help="Run modeling training pipeline")
 @click.option(
     "-s",
     "--steps",
-    help="Specify which steps to run in the census pipeline",
+    help="Specify which steps to run in the modeling pipeline",
     default=["extract", "transform", "load"],
     multiple=True,
 )
-def match(**kwargs):
-    pass
+def train(**kwargs):
+    import reproml.ml
+
+    reproml.ml.train(**kwargs)

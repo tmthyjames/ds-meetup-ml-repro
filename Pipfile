@@ -12,6 +12,7 @@ pytest-cov = "*"
 lxml = "*"
 pipenv-setup = "==3.1.4"
 boto3 = "*"
+nltk = "*"
 
 [packages]
 click = "*"

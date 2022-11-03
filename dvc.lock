@@ -10,3 +10,46 @@ stages:
     - path: data/raw/lyrics/lyrics_whole.csv.zip
       md5: a9e618c5b49032cc096d163b68966ecb
       size: 10738951
+  get-lyrics:
+    cmd: reproml etl get-lyrics
+    deps:
+    - path: reproml/etl/lyrics/_lyrics.py
+      md5: 898af053733b58e7ae54efd1f1ee297b
+      size: 456
+    outs:
+    - path: data/raw/lyrics/
+      md5: 7f9dd04a08e73fb7ff5c3f0774ffd5e9.dir
+      size: 89415465
+      nfiles: 4
+  prepro-lyrics:
+    cmd: reproml prepro process
+    deps:
+    - path: data/raw/lyrics/
+      md5: 7f9dd04a08e73fb7ff5c3f0774ffd5e9.dir
+      size: 89415465
+      nfiles: 4
+    - path: reproml/preprocess/_preprocess.py
+      md5: 726ace3939bcefba04114e15f1e08449
+      size: 1784
+    outs:
+    - path: data/processed/lyrics
+      md5: 6ad855c7d320831760cb3e8928830ff5.dir
+      size: 69960076
+      nfiles: 83
+  split-lyrics:
+    cmd: reproml prepro split
+    deps:
+    - path: data/processed/lyrics/
+      md5: 6ad855c7d320831760cb3e8928830ff5.dir
+      size: 69960076
+      nfiles: 83
+    - path: reproml/preprocess/_preprocess.py
+      md5: 726ace3939bcefba04114e15f1e08449
+      size: 1784
+    outs:
+    - path: data/modeling/test_set.parquet
+      md5: 4fdc0020c1af91f738bf4303662d9ee9
+      size: 14679728
+    - path: data/modeling/train_set.parquet
+      md5: 87ff53661044b8342f84a281cf073c02
+      size: 54937770

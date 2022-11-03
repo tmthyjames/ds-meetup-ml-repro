@@ -1,31 +1,13 @@
-import zipfile
 from pathlib import Path
 
-import pandas as pd
-
-from reproml.config import etl_conf as es
+from reproml.config import etl_conf as ec
 from reproml.etl.utils import download_url
 
 
-def run_lyrics(dstpath: str = es.root_path / es.raw_data_path / es.lyrics.path) -> Path:  # noqa
+def get_lyrics(dstpath: str = ec.root_path / ec.raw_data_path / ec.lyrics.path) -> Path:  # noqa
     dstpath = Path(dstpath)
 
-    download_url(es.lyrics.url, Path(es.lyrics.url).name, dstpath)
-    return dstpath
-
-
-def process_lyrics(
-    srcpath: str = es.root_path / es.raw_data_path,
-    dstpath: str = es.root_path / es.processed_data_path / es.lyrics.path,
-) -> Path:
-
-    srcpath = Path(srcpath)
-    dstpath = Path(dstpath)
-
-    with zipfile.ZipFile(srcpath / Path(es.lyrics.url).name) as z:
-        with z.open(es.lyrics.file_name) as f:
-            train = pd.read_csv(f, header=0, delimiter=",")
-
-    train.to_parquet(dstpath, partition_cols=es.lyrics.partition_cols)
-
+    for source in ec.lyrics.source:
+        url = source.get("url")
+        download_url(url, Path(url).name, dstpath)
     return dstpath

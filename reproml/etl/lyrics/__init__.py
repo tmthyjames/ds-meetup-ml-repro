@@ -1,3 +1,3 @@
-from ._lyrics import process_lyrics, run_lyrics
+from ._lyrics import get_lyrics
 
-__all__ = ["run_lyrics", "process_lyrics"]
+__all__ = [get_lyrics]
