@@ -21,8 +21,8 @@ def validate(**kwargs):
     recall = recall_score(test_df.ranker_genre, predicted, average="weighted")
     f1 = f1_score(test_df.ranker_genre, predicted, average="weighted")
     tps = np.trace(mat)
-    fps = (np.sum(mat, axis=1) - np.diagonal(mat)).sum()
-    fns = (np.sum(mat, axis=0) - np.diagonal(mat)).sum()
+    fps = (np.sum(mat, axis=0) - np.diagonal(mat)).sum()
+    fns = (np.sum(mat, axis=1) - np.diagonal(mat)).sum()
 
     metrics = {
         "precision": precision.item(),

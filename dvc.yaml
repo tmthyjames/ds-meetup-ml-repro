@@ -32,7 +32,7 @@ stages:
     - model_artifacts/model.pkl
 
   validate-model:
-    cmd: reproml ml validate
+    cmd: reproml validate metrics
     deps:
       - model_artifacts/model.pkl
     metrics:
