@@ -16,9 +16,11 @@ def train(
     train_df = pd.read_parquet(srcpath)
 
     # define our model
-    text_clf = Pipeline([("vect", TfidfVectorizer()), ("clf", MultinomialNB(alpha=0.1))])
+    text_clf = Pipeline([("vect", CountVectorizer()), ("clf", MultinomialNB(alpha=0.1))])
 
     # train our model on training data
     text_clf.fit(train_df["lyric"], train_df["ranker_genre"])
 
     joblib.dump(text_clf, dstpath)
+
+    return text_clf
