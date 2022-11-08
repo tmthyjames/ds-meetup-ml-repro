@@ -8,7 +8,7 @@ from reproml.config import ml_conf as mc
 
 
 def train(
-    srcpath: str = mc.root_path / mc.modeling_data_path / mc.train_set.filename,
+    srcpath: str = (mc.root_path / mc.modeling_data_path / mc.train_set.filename),
     dstpath: str = mc.root_path / mc.model_artifact_path,
     **kwargs
 ):

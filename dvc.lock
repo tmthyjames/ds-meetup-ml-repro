@@ -33,14 +33,14 @@ stages:
       size: 1799
     outs:
     - path: data/processed/lyrics
-      md5: f3b09e9716d88f3efad77b639a78b6c0.dir
+      md5: 1812c9ff984fcef3bffdff76634fed5e.dir
       size: 69960076
       nfiles: 83
   split-lyrics:
     cmd: reproml prepro split
     deps:
     - path: data/processed/lyrics/
-      md5: f3b09e9716d88f3efad77b639a78b6c0.dir
+      md5: 1812c9ff984fcef3bffdff76634fed5e.dir
       size: 69960076
       nfiles: 83
     - path: reproml/preprocess/_preprocess.py
@@ -48,31 +48,34 @@ stages:
       size: 1799
     outs:
     - path: data/modeling/test_set.parquet
-      md5: 97ddb233c0cdbae365f072d7273c4f69
-      size: 14674937
+      md5: 1cac26bac3ebc47511ff17310802a514
+      size: 14596176
     - path: data/modeling/train_set.parquet
-      md5: 5f585fef44bf6a78dc9077ab79f66de3
-      size: 54934716
+      md5: 141fa3268da342edb5e998d2c8d35358
+      size: 55010175
   train-model:
     cmd: reproml ml train
     deps:
     - path: data/modeling/train_set.parquet
-      md5: 5f585fef44bf6a78dc9077ab79f66de3
-      size: 54934716
+      md5: 141fa3268da342edb5e998d2c8d35358
+      size: 55010175
     - path: reproml/ml/_ml.py
-      md5: e20de24fc2214d893ad0b750f8922b33
-      size: 719
+      md5: 7945f6bbaf257fe510ca393f6017d7dd
+      size: 811
     outs:
     - path: model_artifacts/model.pkl
-      md5: 829a5603c4f233d05f5fdc382fd0b1a3
-      size: 15775746
+      md5: a1ece0d71f25096334267df947c88ee8
+      size: 15716450
   validate-model:
     cmd: reproml validate metrics
     deps:
+    - path: data/modeling/test_set.parquet
+      md5: 1cac26bac3ebc47511ff17310802a514
+      size: 14596176
     - path: model_artifacts/model.pkl
-      md5: 829a5603c4f233d05f5fdc382fd0b1a3
-      size: 15775746
+      md5: a1ece0d71f25096334267df947c88ee8
+      size: 15716450
     outs:
     - path: data/metrics/performance.json
-      md5: 325903bf91247379dde3924827f7e4a3
-      size: 128
+      md5: 48c649c266182f83c0307f0080f57daa
+      size: 129

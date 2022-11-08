@@ -59,13 +59,15 @@ stages:
     cmd: reproml validate metrics
     deps:
       - model_artifacts/model.pkl
+      - data/modeling/test_set.parquet
     metrics:
     - data/metrics/performance.json
 
-# ❯ dvc stage add -n validate-model \
-# -d model_artifacts/model.pkl \
-# -m data/metrics/performance.json \
-# reproml validate metrics
+#❯ dvc stage add -n validate-model \
+#-d model_artifacts/model.pkl \
+#-d data/modeling/test_set.parquet \
+#-m data/metrics/performance.json \
+#reproml validate metrics
 
 
 #  +------------+
