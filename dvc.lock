@@ -60,11 +60,11 @@ stages:
       md5: 141fa3268da342edb5e998d2c8d35358
       size: 55010175
     - path: reproml/ml/_ml.py
-      md5: 7945f6bbaf257fe510ca393f6017d7dd
-      size: 811
+      md5: 45f2434543a0d08dab68538eedb9b4d7
+      size: 722
     outs:
     - path: model_artifacts/model.pkl
-      md5: a1ece0d71f25096334267df947c88ee8
+      md5: d9909db97180f50e798d301baa207811
       size: 15716450
   validate-model:
     cmd: reproml validate metrics
@@ -73,7 +73,7 @@ stages:
       md5: 1cac26bac3ebc47511ff17310802a514
       size: 14596176
     - path: model_artifacts/model.pkl
-      md5: a1ece0d71f25096334267df947c88ee8
+      md5: d9909db97180f50e798d301baa207811
       size: 15716450
     outs:
     - path: data/metrics/performance.json
