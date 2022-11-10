@@ -35,8 +35,6 @@ pipenv install --dev
 
 # Create IPython Kernel for the virtual environment
 pipenv run ipython kernel install --user --name=reproml
-
-pipenv run python setup.py develop # to get access to the CLI entry point defined in setup.py
 ```
 
 The `pipenv install` command above creates an isolated virtual environment for this repo with
