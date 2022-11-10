@@ -6,11 +6,6 @@ stages:
     outs:
     - data/raw/lyrics/
 
-# ❯ dvc stage add -n get-lyrics \
-# -d reproml/etl/lyrics/_lyrics.py \
-# -o data/raw/lyrics/ \
-# reproml etl get-lyrics
-
   prepro-lyrics:
     cmd: reproml prepro process
     deps:
@@ -18,12 +13,6 @@ stages:
     - data/raw/lyrics/
     outs:
     - data/processed/lyrics
-
-# ❯ dvc stage add -n prepro-lyrics \
-# -d reproml/preprocess/_preprocess.py \
-# -d data/raw/lyrics/ \
-# -o data/processed/lyrics \
-# reproml prepro process
 
   split-lyrics:
     cmd: reproml prepro split
@@ -34,13 +23,6 @@ stages:
     - data/modeling/train_set.parquet
     - data/modeling/test_set.parquet
 
-# ❯ dvc stage add -n split-lyrics \
-# -d reproml/preprocess/_preprocess.py \
-# -d data/raw/lyrics/ \
-# -o data/modeling/train_set.parquet \
-# -o data/modeling/test_set.parquet \
-# reproml prepro split
-
   train-model:
     cmd: reproml ml train
     deps:
@@ -49,12 +31,6 @@ stages:
     outs:
     - model_artifacts/model.pkl
 
-# ❯ dvc stage add -n train-model \
-# -d data/modeling/train_set.parquet \
-# -d reproml/ml/_ml.py \
-# -o model_artifacts/model.pkl \
-# reproml ml train
-
   validate-model:
     cmd: reproml validate metrics
     deps:
@@ -62,38 +38,3 @@ stages:
       - data/modeling/test_set.parquet
     metrics:
     - data/metrics/performance.json
-
-#❯ dvc stage add -n validate-model \
-#-d model_artifacts/model.pkl \
-#-d data/modeling/test_set.parquet \
-#-m data/metrics/performance.json \
-#reproml validate metrics
-
-
-#  +------------+
-#  | get-lyrics |
-#  +------------+
-#         *
-#         *
-#         *
-#+---------------+
-#| prepro-lyrics |
-#+---------------+
-#         *
-#         *
-#         *
-# +--------------+
-# | split-lyrics |
-# +--------------+
-#         *
-#         *
-#         *
-#  +-------------+
-#  | train-model |
-#  +-------------+
-#         *
-#         *
-#         *
-#+----------------+
-#| validate-model |
-#+----------------+
